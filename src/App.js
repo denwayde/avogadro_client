@@ -10,7 +10,7 @@ function App() {
   useEffect(()=>{
     tg.ready()
     tg.MainButton.show()
-    tg.MainButton.text = "Close"
+    tg.MainButton.text = "Отправить"
   }, [])
 
 
