@@ -9,11 +9,15 @@ function App() {
   }
   useEffect(()=>{
     tg.ready()
+    tg.MainButton.show()
   }, [])
+
+
   return (
     <div className="App">
       <h1>Привет мир</h1>
       <button onClick = {Close}>Close</button>
+
     </div>
   );
 }
