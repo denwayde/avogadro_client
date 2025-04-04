@@ -10,6 +10,8 @@ function App() {
   useEffect(()=>{
     tg.ready()
     tg.MainButton.show()
+    tg.MainButton.text('Закрыть')
+    tg.MainButton.onClick(Close())
   }, [])
 
 
