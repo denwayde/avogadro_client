@@ -11,7 +11,7 @@ function App() {
     tg.ready()
     tg.MainButton.show()
     tg.MainButton.text('Закрыть')
-    tg.MainButton.onClick(Close())
+    tg.MainButton.onClick(Close)
   }, [])
 
 
