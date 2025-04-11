@@ -4,9 +4,9 @@ import './App.css';
 const tg = window.Telegram.WebApp
 
 function App() {
-  const Close = ()=>{
-    tg.close()
-  }
+  // const Close = ()=>{
+  //   tg.close()
+  // }
   useEffect(()=>{
     tg.ready()
     tg.MainButton.show()
