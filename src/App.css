@@ -9,6 +9,6 @@ body {
   font-size: 0.9rem;
 }
 .navbar{
-  background-color: var(--tg-theme-bg-color);
+  background-color: var(--tg-theme-bg-color)!important;
   color: var(--tg-theme-text-color);
 }
