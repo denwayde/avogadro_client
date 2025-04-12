@@ -8,3 +8,7 @@ body {
   margin-top: 1.8rem;
   font-size: 0.9rem;
 }
+.navbar{
+  background-color: inherit;
+  color: inherit;
+}
