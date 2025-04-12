@@ -10,5 +10,5 @@ body {
 }
 .navbar{
   background-color: var(--tg-theme-bg-color)!important;
-  color: var(--tg-theme-text-color);
+  color: var(--tg-theme-text-color)!important;
 }
