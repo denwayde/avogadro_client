@@ -40,7 +40,7 @@ function App() {
     } else {
       tg.MainButton.show()
     }
-  }, [])
+  }, [phone, email])
   const changeName = (e) => {
     setName(e.target.value)
   }
