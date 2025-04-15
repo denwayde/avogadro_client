@@ -30,10 +30,17 @@ function App() {
 
   useEffect(()=>{
     tg.ready()
-    tg.MainButton.show()
+    // tg.MainButton.show()
     tg.MainButton.text = "Отправить"
   }, [])
 
+  useEffect(()=>{
+    if(!phone || !email){
+      tg.MainButton.hide()
+    } else {
+      tg.MainButton.show()
+    }
+  }, [])
   const changeName = (e) => {
     setName(e.target.value)
   }
