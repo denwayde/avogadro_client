@@ -13,6 +13,10 @@ function App() {
   const [email, setEmail] = useState("")
   const [selectValue, handleSelectChange] = useState("")
   const selectChangeProccess = (e)=>{handleSelectChange(e.target.value)}
+  // Регулярное выражение для email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // Регулярное выражение для телефонного номера
+  const phoneRegex = /^(\+7|8)\d{10}$/;
 
   const onSendData = useCallback(()=>{
     const data = {
@@ -32,6 +36,7 @@ function App() {
     tg.ready()
     // tg.MainButton.show()
     tg.MainButton.text = "Отправить"
+    console.log(phoneErr)
   }, [])
 
   useEffect(()=>{
@@ -40,13 +45,31 @@ function App() {
     } else {
       tg.MainButton.show()
     }
+    
   }, [phone, email])
+  
   const changeName = (e) => {
     setName(e.target.value)
+
+  }
+
+  const [phoneErr, setPhoneErr] = useState('')
+  const validatePhone = (e) => {
+    if(!phoneRegex.test(phone)){
+      setPhoneErr('Неверный формат номера телефона')
+    }
+    else if (phone === ""){
+      setPhoneErr("")
+    }
+    else {
+      setPhoneErr("")
+    }
+      
   }
 
   const changePhone = (e) => {
     setPhone(e.target.value)
+    
   }
 
   const changeEmail = (e) => {
@@ -72,20 +95,26 @@ function App() {
         <div className="mb-3 ">
           <label className="form-label">Введите ФИО</label>
           <div className='input-group'>
-          <input type="text" className="form-control" id="inputName"  onChange={changeName}/>
-          <span class="input-group-text"> ✔ </span>
+            <input type="text" className="form-control" id="inputName"  onChange={changeName}/>
+            <span className="input-group-text"> ✔ </span>
           </div>
         </div>
 
         <div className="mb-3">
           <label className="form-label">Номер телефона</label>
-          <input type="phone" className="form-control" id="inputPhone" placeholder='+7 999 123 45 67' onChange={changePhone}/>
-          {/* <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div> */}
+          <div className='input-group'>
+            <input type="phone" className="form-control" id="inputPhone" placeholder='+7 999 123 45 67' onChange={changePhone} onBlur={validatePhone}/>
+            {phone!=="" && phoneErr==="" ? <span className="input-group-text"> ✔ </span> : ''}
+          </div>
+          {phoneErr !== "" ? <div id="emailHelp" className="form-text">{phoneErr}</div> : ''}
         </div>
 
         <div className="mb-3">
           <label className="form-label">Email</label>
-          <input type="email" className="form-control" id="inputEmail1" placeholder='examle@email.com' onChange={changeEmail}/>
+          <div className='input-group'>
+            <input type="email" className="form-control" id="inputEmail1" placeholder='examle@email.com' onChange={changeEmail}/>
+            <span className="input-group-text"> ✔ </span>
+          </div>
           {/* <div id="emailHelp" className="form-text">Мы не передадим ваши данные третьим лицам</div> */}
         </div>
 
