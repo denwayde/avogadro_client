@@ -1,14 +1,13 @@
-body {
-  background-color: var(--tg-theme-bg-color);
-  color: var(--tg-theme-text-color);
-}
-
 .bottom-text{
   color: #6c757d;
   margin-top: 1.8rem;
   font-size: 0.9rem;
 }
-.navbar, .form-control{
+body, .navbar, .form-control, .form-select{
   background-color: var(--tg-theme-bg-color)!important;
   color: var(--tg-theme-text-color)!important;
+}
+
+.form-control, .form-select {
+  margin: 0 auto;
 }
