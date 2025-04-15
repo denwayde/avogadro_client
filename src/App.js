@@ -69,9 +69,12 @@ function App() {
           </select>
         </div>
 
-        <div className="mb-3">
+        <div className="mb-3 ">
           <label className="form-label">Введите ФИО</label>
+          <div className='input-group'>
           <input type="text" className="form-control" id="inputName"  onChange={changeName}/>
+          <span class="input-group-text"> ✔ </span>
+          </div>
         </div>
 
         <div className="mb-3">
