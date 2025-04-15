@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import './App.css';
 import Header from './Header';
 const tg = window.Telegram.WebApp
@@ -8,8 +8,25 @@ function App() {
   // const Close = ()=>{
   //   tg.close()
   // }
+  const [name, setName] = useState("")
+  const [phone, setPhone] = useState("")
+  const [email, setEmail] = useState("")
   const [selectValue, handleSelectChange] = useState("")
   const selectChangeProccess = (e)=>{handleSelectChange(e.target.value)}
+
+  const onSendData = useCallback(()=>{
+    const data = {
+      name, phone, email, selectValue
+    }
+    tg.sendData(JSON.stringify(data))
+  }, [name, phone, email, selectValue])
+
+  useEffect(() => {
+    tg.onEvent('mainButtonClicked', onSendData)
+    return () => {
+        tg.offEvent('mainButtonClicked', onSendData)
+    }
+  }, [onSendData])
 
   useEffect(()=>{
     tg.ready()
@@ -17,6 +34,17 @@ function App() {
     tg.MainButton.text = "Отправить"
   }, [])
 
+  const changeName = (e) => {
+    setName(e.target.value)
+  }
+
+  const changePhone = (e) => {
+    setPhone(e.target.value)
+  }
+
+  const changeEmail = (e) => {
+    setEmail(e.target.value)
+  }
 
   return (
     <div className="App">
@@ -36,18 +64,18 @@ function App() {
 
         <div className="mb-3">
           <label className="form-label">Введите ФИО</label>
-          <input type="text" className="form-control" id="inputName"/>
+          <input type="text" className="form-control" id="inputName"  onChange={changeName}/>
         </div>
 
         <div className="mb-3">
           <label className="form-label">Номер телефона</label>
-          <input type="phone" className="form-control" id="inputPhone" placeholder='+7 999 123 45 67'/>
+          <input type="phone" className="form-control" id="inputPhone" placeholder='+7 999 123 45 67' onChange={changePhone}/>
           {/* <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div> */}
         </div>
 
         <div className="mb-3">
           <label className="form-label">Email</label>
-          <input type="email" className="form-control" id="inputEmail1" placeholder='examle@email.com'/>
+          <input type="email" className="form-control" id="inputEmail1" placeholder='examle@email.com' onChange={changeEmail}/>
           {/* <div id="emailHelp" className="form-text">Мы не передадим ваши данные третьим лицам</div> */}
         </div>
 
