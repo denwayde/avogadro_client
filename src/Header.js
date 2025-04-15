@@ -7,7 +7,7 @@ function Header() {
             <div className="container-fluid d-flex justify-content-center">
                 
                 <span className='navbar-brand'>
-                    <img src={icon} alt="Logo" width="105" height="65" className="d-inline-block align-text-top"/>
+                    <img src={icon} alt="Logo" width="95" height="55" className="d-inline-block align-text-top"/>
                 </span>
 
             </div>
