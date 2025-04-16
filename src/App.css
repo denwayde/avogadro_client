@@ -8,6 +8,26 @@ body, .navbar, .form-control, .form-select{
   color: var(--tg-theme-text-color)!important;
 }
 
+.form-text{
+  color: rgb(202, 20, 20);
+}
+
 .form-control, .form-select {
   margin: 0 auto;
 }
+
+.input-group-text{
+  background-color: var(--tg-theme-bg-color)!important;
+  border-left: none!important;
+  color: rgb(7, 195, 7);
+}
+.input-err{
+  border-color: rgb(202, 20, 20)!important;
+  outline: 0!important;
+  box-shadow: 0 0 0 .25rem rgba(191, 3, 3, 0.25)!important;
+}
+
+.fc {
+  border-right: none!important;
+}
+

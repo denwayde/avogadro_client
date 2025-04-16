@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import './App.css';
 import Header from './Header';
+import { Check } from 'react-feather';
 const tg = window.Telegram.WebApp
 
 function App() {
@@ -36,11 +37,11 @@ function App() {
     tg.ready()
     // tg.MainButton.show()
     tg.MainButton.text = "Отправить"
-    console.log(phoneErr)
+    // console.log(phoneErr)
   }, [])
 
   useEffect(()=>{
-    if(!phone || !email){
+    if(!phone || !email || emailErr || phoneErr){
       tg.MainButton.hide()
     } else {
       tg.MainButton.show()
@@ -55,14 +56,28 @@ function App() {
 
   const [phoneErr, setPhoneErr] = useState('')
   const validatePhone = (e) => {
-    if(!phoneRegex.test(phone)){
+    if(!phoneRegex.test(e.target.value) && e.target.value !== ""){
       setPhoneErr('Неверный формат номера телефона')
     }
-    else if (phone === ""){
+    else if (e.target.value === ""){
       setPhoneErr("")
     }
     else {
       setPhoneErr("")
+    }
+      
+  }
+
+  const [emailErr, setEmailErr] = useState('')
+  const validateEmail = (e) => {
+    if(!emailRegex.test(e.target.value) && e.target.value !== ""){
+      setEmailErr('Неверный формат адреса электронной почты')
+    }
+    else if (e.target.value === ""){
+      setEmailErr("")
+    }
+    else {
+      setEmailErr("")
     }
       
   }
@@ -95,16 +110,16 @@ function App() {
         <div className="mb-3 ">
           <label className="form-label">Введите ФИО</label>
           <div className='input-group'>
-            <input type="text" className="form-control" id="inputName"  onChange={changeName}/>
-            <span className="input-group-text"> ✔ </span>
+            <input type="text" className="form-control fc" id="inputName"  onChange={changeName}/>
+            {name && <span className="input-group-text"> <Check/> </span>}
           </div>
         </div>
 
         <div className="mb-3">
           <label className="form-label">Номер телефона</label>
           <div className='input-group'>
-            <input type="phone" className="form-control" id="inputPhone" placeholder='+7 999 123 45 67' onChange={changePhone} onBlur={validatePhone}/>
-            {phone!=="" && phoneErr==="" ? <span className="input-group-text"> ✔ </span> : ''}
+            <input type="phone" className={phoneErr!=="" ? "form-control fc input-err" :"form-control fc"} id="inputPhone" placeholder='+7 999 123 45 67' onChange={changePhone} onBlur={validatePhone}/>
+            {phone!=="" && phoneErr==="" ? <span className="input-group-text"> <Check/> </span> : ''}
           </div>
           {phoneErr !== "" ? <div id="emailHelp" className="form-text">{phoneErr}</div> : ''}
         </div>
@@ -112,10 +127,10 @@ function App() {
         <div className="mb-3">
           <label className="form-label">Email</label>
           <div className='input-group'>
-            <input type="email" className="form-control" id="inputEmail1" placeholder='examle@email.com' onChange={changeEmail}/>
-            <span className="input-group-text"> ✔ </span>
+            <input type="email" className={emailErr!=="" ? "form-control fc input-err" :"form-control fc"} id="inputEmail1" placeholder='examle@email.com' onChange={changeEmail} onBlur={validateEmail}/>
+            {email!=="" && emailErr==="" ? <span className="input-group-text"> <Check/> </span> : ''}
           </div>
-          {/* <div id="emailHelp" className="form-text">Мы не передадим ваши данные третьим лицам</div> */}
+          {emailErr !== "" ? <div id="emailHelp" className="form-text">{emailErr}</div> : ''}
         </div>
 
       </form>
