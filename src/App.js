@@ -13,6 +13,8 @@ function App() {
   const [phone, setPhone] = useState("")
   const [email, setEmail] = useState("")
   const [selectValue, handleSelectChange] = useState("")
+  const [emailErr, setEmailErr] = useState('')
+  const [phoneErr, setPhoneErr] = useState('')
   const selectChangeProccess = (e)=>{handleSelectChange(e.target.value)}
   // Регулярное выражение для email
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -47,14 +49,13 @@ function App() {
       tg.MainButton.show()
     }
     
-  }, [phone, email])
+  }, [phone, email, emailErr, phoneErr])
   
   const changeName = (e) => {
     setName(e.target.value)
 
   }
 
-  const [phoneErr, setPhoneErr] = useState('')
   const validatePhone = (e) => {
     if(!phoneRegex.test(e.target.value) && e.target.value !== ""){
       setPhoneErr('Неверный формат номера телефона')
@@ -68,7 +69,6 @@ function App() {
       
   }
 
-  const [emailErr, setEmailErr] = useState('')
   const validateEmail = (e) => {
     if(!emailRegex.test(e.target.value) && e.target.value !== ""){
       setEmailErr('Неверный формат адреса электронной почты')
