@@ -20,7 +20,10 @@ function App() {
     { value: "2", label: "Программирование на языке Python средний уровень" },
     { value: "3", label: "Программирование на языке Javascript для начинающих" },
   ];
-  const selectChangeProccess = (e)=>{handleSelectChange(e.target.value)}
+  const selectChangeProccess = (e)=>{
+    handleSelectChange(e.target.value)
+    validateCourse(e)
+  }
   // Регулярное выражение для email
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   // Регулярное выражение для телефонного номера
@@ -65,12 +68,14 @@ function App() {
 
   
   const validateCourse = (e) => {
+    
     if(e.target.value===""){
       setCourseErr("Выберите пожалуйста курс")
     }
     else {
       setCourseErr("")
     }
+
   }
   
   const validatePhone = (e) => {
