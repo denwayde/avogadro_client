@@ -49,13 +49,13 @@ function App() {
 
   const [courseErr, setCourseErr] = useState("")
   useEffect(()=>{
-    if(!phone || !email || emailErr || phoneErr || courseErr){
+    if(!phone || !email || emailErr || phoneErr || courseErr || !selectValue){
       tg.MainButton.hide()
     } else {
       tg.MainButton.show()
     }
     
-  }, [phone, email, emailErr, phoneErr, courseErr])
+  }, [phone, email, emailErr, phoneErr, courseErr, selectValue])
   
   const changeName = (e) => {
     setName(e.target.value)
@@ -105,6 +105,7 @@ function App() {
 
   const changeEmail = (e) => {
     setEmail(e.target.value)
+    validateEmail(e)
   }
 
   return (
