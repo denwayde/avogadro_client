@@ -15,6 +15,11 @@ function App() {
   const [selectValue, handleSelectChange] = useState("")
   const [emailErr, setEmailErr] = useState('')
   const [phoneErr, setPhoneErr] = useState('')
+  const courses = [
+    { value: "1", label: "Программирование на языке Python для начинающих" },
+    { value: "2", label: "Программирование на языке Python средний уровень" },
+    { value: "3", label: "Программирование на языке Javascript для начинающих" },
+  ];
   const selectChangeProccess = (e)=>{handleSelectChange(e.target.value)}
   // Регулярное выражение для email
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -42,20 +47,31 @@ function App() {
     // console.log(phoneErr)
   }, [])
 
+  const [courseErr, setCourseErr] = useState("")
   useEffect(()=>{
-    if(!phone || !email || emailErr || phoneErr){
+    if(!phone || !email || emailErr || phoneErr || courseErr){
       tg.MainButton.hide()
     } else {
       tg.MainButton.show()
     }
     
-  }, [phone, email, emailErr, phoneErr])
+  }, [phone, email, emailErr, phoneErr, courseErr])
   
   const changeName = (e) => {
     setName(e.target.value)
 
   }
 
+  
+  const validateCourse = (e) => {
+    if(e.target.value===""){
+      setCourseErr("Выберите пожалуйста курс")
+    }
+    else {
+      setCourseErr("")
+    }
+  }
+  
   const validatePhone = (e) => {
     if(!phoneRegex.test(e.target.value) && e.target.value !== ""){
       setPhoneErr('Неверный формат номера телефона')
@@ -99,12 +115,15 @@ function App() {
 
         <div className='mb-3 mt-3'>
         <label className="form-label">Выберите курс</label>
-          <select className="form-select" onChange={selectChangeProccess} value={selectValue}>
+          <select className="form-select" onChange={selectChangeProccess} onBlur={validateCourse} value={selectValue}>
             <option value = "" disabled>Нажмите чтобы выбрать</option>
-            <option value="1">Программирование на языке Python для начинающих</option>
-            <option value="2">Программирование на языке Python средний уровень</option>
-            <option value="3">Программирование на языке Javascript для начинающих</option>
+            {courses.map((course) => (
+                <option key={course.value} value={course.value}>
+                  {course.label}
+                </option>
+              ))}
           </select>
+          {courseErr !== "" ? <div id="emailHelp" className="form-text">{courseErr}</div> : ''}
         </div>
 
         <div className="mb-3 ">
