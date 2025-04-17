@@ -48,6 +48,7 @@ function App() {
   }, [])
 
   const [courseErr, setCourseErr] = useState("")
+  
   useEffect(()=>{
     if(!phone || !email || emailErr || phoneErr || courseErr || !selectValue){
       tg.MainButton.hide()
@@ -95,6 +96,11 @@ function App() {
     else {
       setEmailErr("")
     }
+
+    if(selectValue===""){
+      setCourseErr("Похоже что вы не выбрали курс")
+
+    }
       
   }
 
@@ -116,7 +122,7 @@ function App() {
 
         <div className='mb-3 mt-3'>
         <label className="form-label">Выберите курс</label>
-          <select className="form-select" onChange={selectChangeProccess} onBlur={validateCourse} value={selectValue}>
+          <select className={courseErr==="Похоже что вы не выбрали курс" ? "form-select outline-warning":"form-select"} onChange={selectChangeProccess} onBlur={validateCourse} value={selectValue}>
             <option value = "" disabled>Нажмите чтобы выбрать</option>
             {courses.map((course) => (
                 <option key={course.value} value={course.value}>
@@ -124,7 +130,7 @@ function App() {
                 </option>
               ))}
           </select>
-          {courseErr !== "" ? <div id="emailHelp" className="form-text">{courseErr}</div> : ''}
+          {courseErr !== "" ? <div id="emailHelp" className={courseErr==="Похоже что вы не выбрали курс" ? "form-text warning":"form-text"}>{courseErr}</div> : ''}
         </div>
 
         <div className="mb-3 ">

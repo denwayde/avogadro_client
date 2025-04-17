@@ -31,3 +31,23 @@ body, .navbar, .form-control, .form-select{
   border-right: none!important;
 }
 
+
+@keyframes blinkShadow{
+  0%, 100% {
+    box-shadow: 0 0 0 .25rem rgba(253, 221, 13, 0.2)
+  }
+  50% {
+    box-shadow: 0 0 0 .25rem rgba(253, 193, 13, 0.5)
+  }
+}
+
+.outline-warning {
+  animation: blinkShadow 2s infinite;
+  border-color: #ee8b3b;
+  outline: 0;
+  
+}
+
+.warning {
+  color: #ee8b3b;
+}
