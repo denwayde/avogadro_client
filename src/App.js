@@ -21,7 +21,7 @@ function App() {
     { value: "3", label: "Программирование на языке Javascript для начинающих" },
   ];
   const selectChangeProccess = (e)=>{
-    handleSelectChange(e.target.value)
+    handleSelectChange(parseInt(e.target.value))
     validateCourse(e)
   }
   // Регулярное выражение для email
