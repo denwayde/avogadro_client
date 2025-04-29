@@ -31,6 +31,15 @@ body, .navbar, .form-control, .form-select{
   border-right: none!important;
 }
 
+.my-brand{
+  width: 20%;
+  display: block;
+  margin: 0 auto;
+}
+
+.my-brand img{
+  width: 100%;
+}
 
 @keyframes blinkShadow{
   0%, 100% {
@@ -50,4 +59,14 @@ body, .navbar, .form-control, .form-select{
 
 .warning {
   color: #ee8b3b;
+}
+@media (max-width: 1000px) {
+  .my-brand{
+    width: 40%;
+  }
+}
+@media (max-width: 500px) {
+  .my-brand{
+    width: 50%;
+  }
 }
