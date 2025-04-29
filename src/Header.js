@@ -1,6 +1,6 @@
 import React from 'react'
 //import icon from './img/icon.png'
-import icon1 from './img/atom-icon.png'
+import icon1 from './img/atom-icon-1.png'
 function Header() {
     return (
         <nav className="navbar bg-body-tertiary">
