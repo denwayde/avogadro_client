@@ -15,13 +15,20 @@ function App() {
   const [selectValue, handleSelectChange] = useState("")
   const [emailErr, setEmailErr] = useState('')
   const [phoneErr, setPhoneErr] = useState('')
+
+  const [online, setOnline] = useState("")
+  const [errOnline, setErrOnline] = useState("")
+
   const courses = [
-    { value: "1", label: "Программирование на языке Python для начинающих" },
-    { value: "2", label: "Программирование на языке Python средний уровень" },
-    { value: "3", label: "Программирование на языке Javascript для начинающих" },
+    { value: "Программирование на Python", label: "Программирование на Python" },
+    { value: "Программирование на Javascript", label: "Программирование на Javascript" },
+    { value: "Робототехника", label: "Робототехника" },
+    { value: "Математика", label: "Математика" },
+    { value: "Английский язык", label: "Английский язык" },
+    { value: "Физика", label: "Физика" },
   ];
   const selectChangeProccess = (e)=>{
-    handleSelectChange(parseInt(e.target.value))
+    handleSelectChange(e.target.value)
     validateCourse(e)
   }
   // Регулярное выражение для email
@@ -31,10 +38,10 @@ function App() {
 
   const onSendData = useCallback(()=>{
     const data = {
-      name, phone, email, selectValue
+      name, phone, email, selectValue, online
     }
     tg.sendData(JSON.stringify(data))
-  }, [name, phone, email, selectValue])
+  }, [name, phone, email, selectValue, online])
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', onSendData)
@@ -53,13 +60,13 @@ function App() {
   const [courseErr, setCourseErr] = useState("")
   
   useEffect(()=>{
-    if(!phone || !email || emailErr || phoneErr || courseErr || !selectValue){
+    if(!phone || !email || emailErr || phoneErr || courseErr || !selectValue || errOnline){
       tg.MainButton.hide()
     } else {
       tg.MainButton.show()
     }
     
-  }, [phone, email, emailErr, phoneErr, courseErr, selectValue])
+  }, [phone, email, emailErr, phoneErr, courseErr, selectValue, errOnline])
   
   const changeName = (e) => {
     setName(e.target.value)
@@ -106,6 +113,9 @@ function App() {
       setCourseErr("Похоже что вы не выбрали курс")
 
     }
+    if (online === "") {
+      setErrOnline("Похоже что вы не выбрали формат")
+    }
       
   }
 
@@ -119,6 +129,22 @@ function App() {
     validateEmail(e)
   }
 
+  
+
+  const changeOnline = (e)=>{
+    setOnline(e.target.value)
+  }
+
+  const validateOnline = (e)=>{
+    if (e.target.value === "") {
+      setErrOnline("Похоже что вы не выбрали формат")
+    }
+    else {
+      setErrOnline("")
+    }
+  }
+
+
   return (
     <div className="App">
     <Header/>
@@ -127,7 +153,7 @@ function App() {
 
         <div className='mb-3 mt-3'>
         <label className="form-label">Выберите курс</label>
-          <select className={courseErr==="Похоже что вы не выбрали курс" ? "form-select outline-warning":"form-select"} onChange={selectChangeProccess} onBlur={validateCourse} value={selectValue}>
+          <select className={courseErr==="Похоже что вы не выбрали курс" ? "form-select outline-warning":"form-select"} onChange={selectChangeProccess} onBlur={validateOnline} value={selectValue}>
             <option value = "" disabled>Нажмите чтобы выбрать</option>
             {courses.map((course) => (
                 <option key={course.value} value={course.value}>
@@ -137,7 +163,17 @@ function App() {
           </select>
           {courseErr !== "" ? <div id="emailHelp" className={courseErr==="Похоже что вы не выбрали курс" ? "form-text warning":"form-text"}>{courseErr}</div> : ''}
         </div>
-
+{/* Формат занятий */}
+        <div className='mb-3'>
+        <label className="form-label">Выберите формат занятий</label>
+          <select className={courseErr==="Похоже что вы не выбрали формат" ? "form-select outline-warning":"form-select"} onChange={changeOnline} onBlur={validateOnline} value={online}>
+            <option value = "" disabled>Нажмите чтобы выбрать</option>
+            <option value = "Онлайн">Онлайн</option>
+            <option value = "Офлайн">Офлайн</option>
+          </select>
+          {errOnline !== "" ? <div id="emailHelp" className={errOnline==="Похоже что вы не выбрали формат" ? "form-text warning":"form-text"}>{errOnline}</div> : ''}
+        </div>
+{/* Формат занятий */}
         <div className="mb-3 ">
           <label className="form-label">Введите ФИО</label>
           <div className='input-group'>
