@@ -153,7 +153,7 @@ function App() {
 
         <div className='mb-3 mt-3'>
         <label className="form-label">Выберите курс</label>
-          <select className={courseErr==="Похоже что вы не выбрали курс" ? "form-select outline-warning":"form-select"} onChange={selectChangeProccess} onBlur={validateOnline} value={selectValue}>
+          <select className={courseErr==="Похоже что вы не выбрали курс" ? "form-select outline-warning":"form-select"} onChange={selectChangeProccess} onBlur={validateCourse} value={selectValue}>
             <option value = "" disabled>Нажмите чтобы выбрать</option>
             {courses.map((course) => (
                 <option key={course.value} value={course.value}>
@@ -166,10 +166,10 @@ function App() {
 {/* Формат занятий */}
         <div className='mb-3'>
         <label className="form-label">Выберите формат занятий</label>
-          <select className={courseErr==="Похоже что вы не выбрали формат" ? "form-select outline-warning":"form-select"} onChange={changeOnline} onBlur={validateOnline} value={online}>
+          <select className={errOnline==="Похоже что вы не выбрали формат" ? "form-select outline-warning":"form-select"} onChange={changeOnline} onBlur={validateOnline} value={online}>
             <option value = "" disabled>Нажмите чтобы выбрать</option>
             <option value = "Онлайн">Онлайн</option>
-            <option value = "Офлайн">Офлайн</option>
+            <option value = "Офлайн">Оффлайн</option>
           </select>
           {errOnline !== "" ? <div id="emailHelp" className={errOnline==="Похоже что вы не выбрали формат" ? "form-text warning":"form-text"}>{errOnline}</div> : ''}
         </div>
